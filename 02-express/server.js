@@ -9,8 +9,18 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const lodash = require('lodash')
+const morgan = require('morgan')
 
 
+// Middleware
+// app.use((req, res, next) => {
+//     console.log(`Incoming ${req.method} request for ${req.url}`);
+//     next();
+// });
+
+
+//use morgan for logging
+app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
     console.log(req.method, req.url);
