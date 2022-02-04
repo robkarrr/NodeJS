@@ -9,7 +9,7 @@ const express = require('express');
 const fs = require('fs');
 const lodash = require('lodash');
 const morgan = require('morgan');
-
+const users = require('./data/users.json');
 const app = express();
 
 // tell app to use ejs
@@ -27,8 +27,13 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-  res.render('index', {title: 'My express server'});
+  res.render('index', {title: 'My express server', users});
 })
+
+app.get('/users/:userId', (req, res) => {
+    res.send(`Would show user with id: ${req.params.userId}`);
+});
+
 
 /*
 app.get('/nom', (req, res) => {
