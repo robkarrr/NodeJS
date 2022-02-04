@@ -6,10 +6,14 @@ EXPRESS
 
 
 const express = require('express');
-const app = express();
 const fs = require('fs');
-const lodash = require('lodash')
-const morgan = require('morgan')
+const lodash = require('lodash');
+const morgan = require('morgan');
+
+const app = express();
+
+// tell app to use ejs
+app.set('view engine', 'ejs');
 
 
 // Middleware
@@ -23,9 +27,7 @@ const morgan = require('morgan')
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    console.log(req.method, req.url);
-    
-    res.send("Hello from ROOT");
+  res.render('index', {title: 'My express server'});
 })
 
 /*
@@ -72,11 +74,10 @@ app.get('/jokes', (req, res) => {
     randomJoke = shuffledJokes[0];
 
 	// 3. Respond with the item (`res.send(item)`)
-    res.send(randomJoke);
+    res.render('jokes', {randomJoke, title: "A random joke for you!"});
 });
 
 app.use(express.static('pages'));
-
 
 
 app.listen(3000,  () => {
